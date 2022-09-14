@@ -16,6 +16,17 @@ export default function StudentList() {
       .then((response) => setStudents(response.data))
       .catch((error) => alert(error));
   };
+  let deleteStudent = (studentId) => {
+    axios.delete("http://localhost:8080/student/"+studentId)
+    .then(response=> {
+      if (response.data !== null){
+        alert("Record Deleted Successfully");
+
+      }
+    })
+  }
+
+
   return (
     <div className="my-3">
          <Container>
@@ -43,6 +54,13 @@ export default function StudentList() {
                   <td>{student.id}</td>
                   <td>{student.name}</td>
                   <td>{student.address}</td>
+                  <td>
+                    <ButtonGroup>
+                      <Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faEdit}> Edit </FontAwesomeIcon></Button>{ ' '}
+                      <Button size="sm" variant="outline-danger" onClick={deleteStudent.bind(this,student.id)}><FontAwesomeIcon icon={faTrash}> Delete </FontAwesomeIcon></Button>
+                      {/* <Button size="sm" variant="outline-danger" onClick={()=>deleteStudent(student.id)}><FontAwesomeIcon icon={faTrash}> Delete </FontAwesomeIcon></Button> */}
+                    </ButtonGroup>
+                  </td>
                 </tr>
                 )
               )}
